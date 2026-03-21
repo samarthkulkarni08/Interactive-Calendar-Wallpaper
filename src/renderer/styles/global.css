@@ -1,0 +1,1005 @@
+:root {
+  color-scheme: dark;
+  --panel-bg: rgba(18, 18, 20, 0.78);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.62);
+  --accent: rgba(130, 170, 255, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: transparent;
+  color: var(--text);
+}
+
+#root {
+  height: 100%;
+}
+
+.wallpaperRoot {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  pointer-events: none; /* Let clicks pass through by default */
+}
+
+.mainLayout {
+  position: absolute;
+  inset: 0;
+  padding: 84px 40px 40px 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
+}
+
+.calendarWrap {
+  width: min(760px, 100%);
+  pointer-events: auto; /* Calendar captures clicks */
+}
+
+.calendarStage {
+  position: absolute;
+  inset: 0;
+  padding: 84px 40px 40px 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+/* Make sure inputs look clean on dark wallpaper. */
+input,
+button {
+  font-family: inherit;
+}
+
+.timeWidget {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 30;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(12, 12, 14, 0.55);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 160ms ease, background 160ms ease;
+  pointer-events: auto; /* Time widget captures clicks */
+}
+
+.timeWidget:hover {
+  transform: translateY(-1px);
+  background: rgba(12, 12, 14, 0.65);
+}
+
+.timeWidgetTime {
+  font-size: 26px;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+  font-weight: 650;
+}
+
+.timeWidgetLabel {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.calendarCard {
+  width: min(760px, 100%);
+  max-width: 760px;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.calendarHeaderTitle {
+  font-weight: 650;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.2px;
+}
+
+.calendarNavBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(12, 12, 14, 0.42);
+  border: 1px solid var(--panel-border);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.calendarNavBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(12, 12, 14, 0.55);
+}
+
+.calendarWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 8px 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.calendarWeekday {
+  text-align: center;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(12, 12, 14, 0.28);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(10px);
+}
+
+.calendarCell {
+  height: 62px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  position: relative;
+  padding: 8px;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.calendarCell:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.calendarCellOutMonth {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.calendarCellInMonth:disabled {
+  cursor: default;
+}
+
+.calendarCellToday {
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, 
+    rgba(255, 200, 150, 0.15) 0%, 
+    rgba(255, 180, 200, 0.12) 100%);
+  box-shadow: 0 0 0 1px rgba(255, 200, 150, 0.4);
+}
+
+.calendarCellDay {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.calendarBadges {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.calendarBadge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.calendarBadgeTodo {
+  background: rgba(255, 180, 100, 0.9);
+}
+
+.calendarBadgeEvent {
+  background: rgba(180, 140, 255, 0.9);
+}
+
+.datePanelInline {
+  pointer-events: auto; /* Date panel captures clicks */
+  width: 420px;
+  max-width: 90vw;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  align-self: stretch; /* Match height with calendar */
+}
+
+.datePanelRoot {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.datePanelRootOpen {
+  pointer-events: auto;
+}
+
+.dateOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+
+.dateOverlayHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.datePanelHidden {
+  transform: translateX(110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.datePanel {
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 420px;
+  max-width: 90vw;
+  background: var(--panel-bg);
+  border-left: 1px solid var(--panel-border);
+  backdrop-filter: blur(14px);
+  transform: translateX(110%);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.datePanelOpen {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.datePanelTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 10px 16px;
+}
+
+.datePanelTitle {
+  font-weight: 650;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.datePanelCloseBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--panel-border);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.dateTabs {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px 12px 16px;
+}
+
+.dateTabBtn {
+  flex: 1;
+  height: 40px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--panel-border);
+  color: rgba(255, 255, 255, 0.86);
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.dateTabBtn:hover {
+  transform: translateY(-1px);
+}
+
+.dateTabBtnActive {
+  background: rgba(130, 170, 255, 0.18);
+  border-color: rgba(130, 170, 255, 0.35);
+  color: rgba(255, 255, 255, 0.98);
+}
+
+.datePanelBody {
+  padding: 0 16px 18px 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1; /* Take remaining height */
+}
+
+.dateColumns {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dateColumn {
+  width: 100%;
+}
+
+.dateTabs {
+  display: none;
+}
+
+/* dateColumns is already a vertical stack for alignment */
+
+.dateSection {
+  padding-bottom: 10px;
+}
+
+.blockHeader {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dateList {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.addToggleBtn {
+  width: 100%;
+  margin-top: 12px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.addToggleBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.30);
+  color: rgba(255, 255, 255, 0.90);
+}
+
+.listRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+.listRowMain {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1; /* Take available space */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.listRowTitle {
+  font-weight: 620;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  max-width: 100%;
+}
+
+.listRowMeta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.emptyState {
+  padding: 14px 12px;
+  color: var(--muted);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+}
+
+.addCard {
+  margin-top: 14px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--panel-border);
+  background: rgba(0, 0, 0, 0.10);
+}
+
+.addCardTitle {
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+
+.textInput {
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.92);
+  outline: none;
+  margin-top: 8px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: vertical; /* Allow vertical resize for long text */
+}
+
+.textInput:focus {
+  border-color: rgba(130, 170, 255, 0.45);
+  box-shadow: 0 0 0 3px rgba(130, 170, 255, 0.10);
+}
+
+.primaryBtn {
+  width: 100%;
+  margin-top: 12px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(130, 170, 255, 0.55);
+  background: rgba(130, 170, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  font-weight: 650;
+  transition: transform 160ms ease, background 160ms ease;
+  box-sizing: border-box;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(130, 170, 255, 0.24);
+}
+
+.listRow .primaryBtn {
+  width: auto;
+  min-width: 80px;
+  margin-top: 0;
+  height: 36px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.secondaryBtn {
+  width: 100%;
+  margin-top: 10px;
+  height: 38px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.todoCheck {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.todoTitle {
+  font-weight: 620;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.todoTitleDone {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.todoApp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0; /* Never shrink */
+}
+
+.appLaunchBtn {
+  max-width: 150px;
+  min-width: 80px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.appLaunchBtn:hover {
+  border-color: rgba(130, 170, 255, 0.4);
+}
+
+.attachBlock {
+  margin-top: 10px;
+}
+
+.attachLabel {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.attachAppBtn {
+  width: 100%;
+  height: 44px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.attachAppBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(130, 170, 255, 0.35);
+}
+
+.attachAppIcon {
+  font-size: 18px;
+}
+
+.attachDropdown {
+  margin-top: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.attachCandidate {
+  width: 100%;
+  height: 38px;
+  text-align: left;
+  padding: 0 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+}
+
+.attachCandidate:last-child {
+  border-bottom: none;
+}
+
+.attachCandidate:hover {
+  background: rgba(130, 170, 255, 0.14);
+}
+
+.attachSelected {
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.attachHint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.resolveModalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+  padding: 18px;
+}
+
+.resolveModal {
+  width: min(520px, 100%);
+  border-radius: 18px;
+  background: rgba(16, 16, 18, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(14px);
+  padding: 16px 16px;
+}
+
+.resolveModalTitle {
+  font-weight: 650;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.resolveModalList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resolveCandidate {
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  text-align: left;
+  padding: 0 12px;
+}
+
+.resolveCandidate:hover {
+  border-color: rgba(130, 170, 255, 0.40);
+}
+
+/* Edit/Delete functionality styles */
+.listRowActions {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  flex-shrink: 0; /* Never shrink, always visible */
+}
+
+.iconBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.iconBtnDelete:hover {
+  background: rgba(255, 100, 100, 0.12);
+  border-color: rgba(255, 100, 100, 0.35);
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--panel-border);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.editFormActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.editFormActions button {
+  flex: 1;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.editFormActions button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.editFormActions .saveBtn {
+  background: rgba(130, 170, 255, 0.18);
+  border-color: rgba(130, 170, 255, 0.45);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.editFormActions .saveBtn:hover {
+  background: rgba(130, 170, 255, 0.24);
+}
+
+/* App Picker Modal */
+.appPickerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: fadeIn 200ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.appPickerModal {
+  width: min(720px, 100%);
+  max-height: 80vh;
+  border-radius: 20px;
+  background: rgba(16, 16, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 250ms ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.appPickerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.appPickerTitle {
+  font-weight: 700;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.appPickerCloseBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--panel-border);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease;
+}
+
+.appPickerCloseBtn:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.appPickerSearch {
+  margin: 16px 20px;
+  width: calc(100% - 40px);
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.appPickerSearch:focus {
+  border-color: rgba(130, 170, 255, 0.50);
+  box-shadow: 0 0 0 3px rgba(130, 170, 255, 0.12);
+}
+
+.appPickerBody {
+  padding: 0 20px 20px 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+}
+
+.appPickerLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.10);
+  border-top-color: rgba(130, 170, 255, 0.80);
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.appPickerEmpty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.appPickerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 10px 0;
+}
+
+@media (max-width: 600px) {
+  .appPickerGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.appPickerItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.appPickerItem:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(130, 170, 255, 0.35);
+  box-shadow: 0 4px 12px rgba(130, 170, 255, 0.15);
+}
+
+.appPickerItemSelected {
+  background: rgba(130, 170, 255, 0.15);
+  border-color: rgba(130, 170, 255, 0.50);
+}
+
+.appPickerIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.appPickerIconPlaceholder {
+  filter: grayscale(0.3);
+}
+
+.appPickerName {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.90);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.appPickerCheckmark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(130, 170, 255, 0.95);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(130, 170, 255, 0.40);
+}
+

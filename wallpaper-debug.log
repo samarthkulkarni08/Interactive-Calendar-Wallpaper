@@ -1,0 +1,356 @@
+[2026-03-20T16:56:29.402Z] main loaded
+[2026-03-20T16:56:29.725Z] app.whenReady
+[2026-03-20T16:56:30.052Z] loadURL: http://localhost:5173
+[2026-03-20T16:56:32.078Z] did-finish-load
+[2026-03-20T16:56:32.271Z] ready-to-show
+[2026-03-20T17:00:23.902Z] main loaded
+[2026-03-20T17:00:24.044Z] app.whenReady
+[2026-03-20T17:00:24.155Z] loadURL: http://localhost:5173
+[2026-03-20T17:00:26.379Z] ready-to-show
+[2026-03-20T17:00:26.417Z] did-finish-load
+[2026-03-20T17:26:18.918Z] main loaded
+[2026-03-20T17:26:19.209Z] app.whenReady
+[2026-03-20T17:26:19.490Z] loadURL: http://localhost:5173
+[2026-03-20T17:26:21.217Z] ready-to-show
+[2026-03-20T17:26:21.269Z] did-finish-load
+[2026-03-20T17:28:09.115Z] main loaded
+[2026-03-20T17:28:09.196Z] app.whenReady
+[2026-03-20T17:28:09.261Z] loadURL: http://localhost:5173
+[2026-03-20T17:28:09.797Z] ready-to-show
+[2026-03-20T17:28:09.841Z] did-finish-load
+[2026-03-20T17:41:58.610Z] main loaded
+[2026-03-20T17:41:58.798Z] app.whenReady
+[2026-03-20T17:41:59.013Z] loadURL: http://localhost:5173
+[2026-03-20T17:41:59.488Z] ready-to-show
+[2026-03-20T17:41:59.559Z] did-finish-load
+[2026-03-21T07:03:38.365Z] did-finish-load
+[2026-03-21T07:23:42.384Z] did-fail-load: -102 ERR_CONNECTION_REFUSED http://localhost:5173/
+[2026-03-21T07:23:43.231Z] did-finish-load
+[2026-03-21T07:35:33.517Z] main loaded
+[2026-03-21T07:35:33.855Z] app.whenReady
+[2026-03-21T07:35:34.207Z] loadURL: http://localhost:5173
+[2026-03-21T07:35:36.125Z] ready-to-show
+[2026-03-21T07:35:36.183Z] did-finish-load
+[2026-03-21T08:09:09.102Z] main loaded
+[2026-03-21T08:09:09.189Z] app.whenReady
+[2026-03-21T08:09:09.552Z] loadURL: http://localhost:5173
+[2026-03-21T08:09:11.384Z] ready-to-show
+[2026-03-21T08:09:11.452Z] did-finish-load
+[2026-03-21T08:19:17.086Z] main loaded
+[2026-03-21T08:19:17.229Z] app.whenReady
+[2026-03-21T08:19:17.391Z] loadURL: http://localhost:5173
+[2026-03-21T08:19:20.115Z] ready-to-show
+[2026-03-21T08:19:20.170Z] did-finish-load
+[2026-03-21T08:20:33.511Z] main loaded
+[2026-03-21T08:20:33.575Z] app.whenReady
+[2026-03-21T08:20:33.636Z] loadURL: http://localhost:5173
+[2026-03-21T08:20:35.346Z] ready-to-show
+[2026-03-21T08:20:35.379Z] did-finish-load
+[2026-03-21T08:21:02.007Z] IPC: resolve-app-name called with: "s"
+[2026-03-21T08:21:02.010Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54520172ms
+[2026-03-21T08:21:02.011Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:02.015Z] IPC: resolve-app-name found 12 candidates for "s"
+[2026-03-21T08:21:08.972Z] IPC: resolve-app-name called with: "w"
+[2026-03-21T08:21:08.975Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54527137ms
+[2026-03-21T08:21:08.976Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:08.977Z] IPC: resolve-app-name found 12 candidates for "w"
+[2026-03-21T08:21:16.532Z] IPC: resolve-app-name called with: "b"
+[2026-03-21T08:21:16.534Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54534696ms
+[2026-03-21T08:21:16.535Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:16.537Z] IPC: resolve-app-name found 12 candidates for "b"
+[2026-03-21T08:21:16.828Z] IPC: resolve-app-name called with: "br"
+[2026-03-21T08:21:16.830Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54534992ms
+[2026-03-21T08:21:16.831Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:16.834Z] IPC: resolve-app-name found 12 candidates for "br"
+[2026-03-21T08:21:17.692Z] IPC: resolve-app-name called with: "bra"
+[2026-03-21T08:21:17.694Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54535856ms
+[2026-03-21T08:21:17.695Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:17.696Z] IPC: resolve-app-name found 12 candidates for "bra"
+[2026-03-21T08:21:20.380Z] IPC: resolve-app-name called with: "br"
+[2026-03-21T08:21:20.383Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54538545ms
+[2026-03-21T08:21:20.384Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:20.386Z] IPC: resolve-app-name found 12 candidates for "br"
+[2026-03-21T08:21:20.572Z] IPC: resolve-app-name called with: "b"
+[2026-03-21T08:21:20.574Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54538736ms
+[2026-03-21T08:21:20.575Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:20.577Z] IPC: resolve-app-name found 12 candidates for "b"
+[2026-03-21T08:21:21.380Z] IPC: resolve-app-name called with: "s"
+[2026-03-21T08:21:21.382Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54539544ms
+[2026-03-21T08:21:21.383Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:21.384Z] IPC: resolve-app-name found 12 candidates for "s"
+[2026-03-21T08:21:21.717Z] IPC: resolve-app-name called with: "st"
+[2026-03-21T08:21:21.719Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54539881ms
+[2026-03-21T08:21:21.720Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:21.722Z] IPC: resolve-app-name found 12 candidates for "st"
+[2026-03-21T08:21:21.899Z] IPC: resolve-app-name called with: "ste"
+[2026-03-21T08:21:21.901Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54540063ms
+[2026-03-21T08:21:21.902Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:21.904Z] IPC: resolve-app-name found 12 candidates for "ste"
+[2026-03-21T08:21:22.150Z] IPC: resolve-app-name called with: "stea"
+[2026-03-21T08:21:22.152Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54540314ms
+[2026-03-21T08:21:22.153Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:22.155Z] IPC: resolve-app-name found 12 candidates for "stea"
+[2026-03-21T08:21:22.430Z] IPC: resolve-app-name called with: "steam"
+[2026-03-21T08:21:22.432Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54540593ms
+[2026-03-21T08:21:22.433Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:22.435Z] IPC: resolve-app-name found 12 candidates for "steam"
+[2026-03-21T08:21:28.125Z] IPC: resolve-app-name called with: "stea"
+[2026-03-21T08:21:28.127Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54546289ms
+[2026-03-21T08:21:28.128Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:28.129Z] IPC: resolve-app-name found 12 candidates for "stea"
+[2026-03-21T08:21:28.292Z] IPC: resolve-app-name called with: "ste"
+[2026-03-21T08:21:28.294Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54546456ms
+[2026-03-21T08:21:28.295Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:28.297Z] IPC: resolve-app-name found 12 candidates for "ste"
+[2026-03-21T08:21:28.467Z] IPC: resolve-app-name called with: "st"
+[2026-03-21T08:21:28.469Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54546631ms
+[2026-03-21T08:21:28.471Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:28.474Z] IPC: resolve-app-name found 12 candidates for "st"
+[2026-03-21T08:21:28.643Z] IPC: resolve-app-name called with: "s"
+[2026-03-21T08:21:28.645Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54546807ms
+[2026-03-21T08:21:28.646Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:28.648Z] IPC: resolve-app-name found 12 candidates for "s"
+[2026-03-21T08:21:30.804Z] IPC: resolve-app-name called with: "f"
+[2026-03-21T08:21:30.806Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54548968ms
+[2026-03-21T08:21:30.807Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:30.809Z] IPC: resolve-app-name found 12 candidates for "f"
+[2026-03-21T08:21:31.084Z] IPC: resolve-app-name called with: "fi"
+[2026-03-21T08:21:31.086Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54549248ms
+[2026-03-21T08:21:31.087Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:31.089Z] IPC: resolve-app-name found 12 candidates for "fi"
+[2026-03-21T08:21:31.557Z] IPC: resolve-app-name called with: "fig"
+[2026-03-21T08:21:31.559Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54549721ms
+[2026-03-21T08:21:31.560Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:31.561Z] IPC: resolve-app-name found 4 candidates for "fig"
+[2026-03-21T08:21:33.441Z] IPC: resolve-app-name called with: "figm"
+[2026-03-21T08:21:33.444Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54551606ms
+[2026-03-21T08:21:33.445Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:33.447Z] IPC: resolve-app-name found 0 candidates for "figm"
+[2026-03-21T08:21:33.697Z] IPC: resolve-app-name called with: "figma"
+[2026-03-21T08:21:33.698Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54551860ms
+[2026-03-21T08:21:33.700Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:33.701Z] IPC: resolve-app-name found 0 candidates for "figma"
+[2026-03-21T08:21:36.058Z] IPC: resolve-app-name called with: "figm"
+[2026-03-21T08:21:36.060Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54554222ms
+[2026-03-21T08:21:36.061Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:36.062Z] IPC: resolve-app-name found 0 candidates for "figm"
+[2026-03-21T08:21:36.265Z] IPC: resolve-app-name called with: "fig"
+[2026-03-21T08:21:36.267Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54554429ms
+[2026-03-21T08:21:36.267Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:36.269Z] IPC: resolve-app-name found 4 candidates for "fig"
+[2026-03-21T08:21:36.449Z] IPC: resolve-app-name called with: "fi"
+[2026-03-21T08:21:36.452Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54554614ms
+[2026-03-21T08:21:36.453Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:36.455Z] IPC: resolve-app-name found 12 candidates for "fi"
+[2026-03-21T08:21:37.186Z] IPC: resolve-app-name called with: "f"
+[2026-03-21T08:21:37.188Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54555350ms
+[2026-03-21T08:21:37.189Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:37.190Z] IPC: resolve-app-name found 12 candidates for "f"
+[2026-03-21T08:21:47.913Z] IPC: resolve-app-name called with: "c"
+[2026-03-21T08:21:47.915Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54566077ms
+[2026-03-21T08:21:47.917Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:47.918Z] IPC: resolve-app-name found 12 candidates for "c"
+[2026-03-21T08:21:48.282Z] IPC: resolve-app-name called with: "ch"
+[2026-03-21T08:21:48.284Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54566446ms
+[2026-03-21T08:21:48.285Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:48.286Z] IPC: resolve-app-name found 12 candidates for "ch"
+[2026-03-21T08:21:48.634Z] IPC: resolve-app-name called with: "chr"
+[2026-03-21T08:21:48.636Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54566798ms
+[2026-03-21T08:21:48.637Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:48.638Z] IPC: resolve-app-name found 7 candidates for "chr"
+[2026-03-21T08:21:48.907Z] IPC: resolve-app-name called with: "chro"
+[2026-03-21T08:21:48.909Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54567071ms
+[2026-03-21T08:21:48.910Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:48.911Z] IPC: resolve-app-name found 7 candidates for "chro"
+[2026-03-21T08:21:49.194Z] IPC: resolve-app-name called with: "chrom"
+[2026-03-21T08:21:49.195Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54567357ms
+[2026-03-21T08:21:49.196Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:49.198Z] IPC: resolve-app-name found 6 candidates for "chrom"
+[2026-03-21T08:21:49.347Z] IPC: resolve-app-name called with: "chrome"
+[2026-03-21T08:21:49.349Z] ensureInstalledAppsCache: cache exists=true, count=847, age=54567511ms
+[2026-03-21T08:21:49.350Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:21:49.352Z] IPC: resolve-app-name found 6 candidates for "chrome"
+[2026-03-21T08:40:40.046Z] did-finish-load
+[2026-03-21T08:43:33.560Z] IPC: resolve-app-name called with: "msedge"
+[2026-03-21T08:43:33.562Z] ensureInstalledAppsCache: cache exists=true, count=847, age=55871724ms
+[2026-03-21T08:43:33.563Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T08:43:33.567Z] IPC: resolve-app-name found 12 candidates for "msedge"
+[2026-03-21T08:44:47.218Z] main loaded
+[2026-03-21T08:44:47.298Z] app.whenReady
+[2026-03-21T08:44:47.379Z] loadURL: http://localhost:5173
+[2026-03-21T08:44:49.611Z] ready-to-show
+[2026-03-21T08:45:05.064Z] did-finish-load
+[2026-03-21T08:45:42.102Z] main loaded
+[2026-03-21T08:45:42.327Z] app.whenReady
+[2026-03-21T08:45:42.478Z] loadURL: http://localhost:5173
+[2026-03-21T08:45:44.523Z] ready-to-show
+[2026-03-21T08:46:18.144Z] did-finish-load
+[2026-03-21T08:48:21.210Z] main loaded
+[2026-03-21T08:48:21.401Z] app.whenReady
+[2026-03-21T08:48:21.526Z] loadURL: http://localhost:5173
+[2026-03-21T08:48:23.661Z] ready-to-show
+[2026-03-21T08:48:23.698Z] Window set to not always on top (fallback)
+[2026-03-21T08:48:23.710Z] did-finish-load
+[2026-03-21T08:49:08.478Z] main loaded
+[2026-03-21T08:49:08.633Z] app.whenReady
+[2026-03-21T08:49:08.771Z] loadURL: http://localhost:5173
+[2026-03-21T08:49:10.735Z] ready-to-show
+[2026-03-21T08:49:10.790Z] Window set to not always on top (fallback)
+[2026-03-21T08:49:10.796Z] did-finish-load
+[2026-03-21T08:49:47.461Z] main loaded
+[2026-03-21T08:49:47.551Z] app.whenReady
+[2026-03-21T08:49:47.640Z] loadURL: http://localhost:5173
+[2026-03-21T08:49:49.698Z] ready-to-show
+[2026-03-21T08:49:49.732Z] Window set to not always on top (fallback)
+[2026-03-21T08:49:49.736Z] did-finish-load
+[2026-03-21T08:52:16.526Z] main loaded
+[2026-03-21T08:52:16.601Z] app.whenReady
+[2026-03-21T08:52:16.663Z] loadURL: http://localhost:5173
+[2026-03-21T08:52:18.511Z] ready-to-show
+[2026-03-21T08:52:18.556Z] Window set to not always on top (fallback)
+[2026-03-21T08:52:18.563Z] did-finish-load
+[2026-03-21T09:27:22.730Z] did-finish-load
+[2026-03-21T09:27:40.718Z] IPC: resolve-app-name called with: "msedge"
+[2026-03-21T09:27:40.722Z] ensureInstalledAppsCache: cache exists=true, count=847, age=58518884ms
+[2026-03-21T09:27:40.723Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:27:40.729Z] IPC: resolve-app-name found 12 candidates for "msedge"
+[2026-03-21T09:57:28.705Z] IPC: resolve-app-name called with: "msedge"
+[2026-03-21T09:57:28.713Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60306875ms
+[2026-03-21T09:57:28.714Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:57:28.722Z] IPC: resolve-app-name found 12 candidates for "msedge"
+[2026-03-21T09:57:40.359Z] IPC: resolve-app-name called with: "chrome"
+[2026-03-21T09:57:40.360Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60318522ms
+[2026-03-21T09:57:40.361Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:57:40.363Z] IPC: resolve-app-name found 6 candidates for "chrome"
+[2026-03-21T09:57:45.580Z] IPC: resolve-app-name called with: "chrome_pwa_launcher"
+[2026-03-21T09:57:45.582Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60323744ms
+[2026-03-21T09:57:45.583Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:57:45.585Z] IPC: resolve-app-name found 3 candidates for "chrome_pwa_launcher"
+[2026-03-21T09:57:49.997Z] IPC: resolve-app-name called with: "chrome"
+[2026-03-21T09:57:49.999Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60328161ms
+[2026-03-21T09:57:50.000Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:57:50.002Z] IPC: resolve-app-name found 6 candidates for "chrome"
+[2026-03-21T09:57:56.358Z] IPC: resolve-app-name called with: "chrome"
+[2026-03-21T09:57:56.361Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60334523ms
+[2026-03-21T09:57:56.362Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:57:56.364Z] IPC: resolve-app-name found 6 candidates for "chrome"
+[2026-03-21T09:58:31.918Z] IPC: resolve-app-name called with: "F"
+[2026-03-21T09:58:31.921Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60370083ms
+[2026-03-21T09:58:31.923Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:31.926Z] IPC: resolve-app-name found 12 candidates for "F"
+[2026-03-21T09:58:33.165Z] IPC: resolve-app-name called with: "Fi"
+[2026-03-21T09:58:33.168Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60371330ms
+[2026-03-21T09:58:33.169Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:33.170Z] IPC: resolve-app-name found 12 candidates for "Fi"
+[2026-03-21T09:58:33.502Z] IPC: resolve-app-name called with: "Fig"
+[2026-03-21T09:58:33.504Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60371666ms
+[2026-03-21T09:58:33.505Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:33.508Z] IPC: resolve-app-name found 4 candidates for "Fig"
+[2026-03-21T09:58:35.564Z] IPC: resolve-app-name called with: "Figm"
+[2026-03-21T09:58:35.566Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60373728ms
+[2026-03-21T09:58:35.568Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:35.569Z] IPC: resolve-app-name found 0 candidates for "Figm"
+[2026-03-21T09:58:35.747Z] IPC: resolve-app-name called with: "Figma"
+[2026-03-21T09:58:35.749Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60373911ms
+[2026-03-21T09:58:35.750Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:35.752Z] IPC: resolve-app-name found 0 candidates for "Figma"
+[2026-03-21T09:58:48.373Z] IPC: resolve-app-name called with: "c"
+[2026-03-21T09:58:48.375Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60386537ms
+[2026-03-21T09:58:48.376Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:48.378Z] IPC: resolve-app-name found 12 candidates for "c"
+[2026-03-21T09:58:48.741Z] IPC: resolve-app-name called with: "ch"
+[2026-03-21T09:58:48.744Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60386906ms
+[2026-03-21T09:58:48.745Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:48.747Z] IPC: resolve-app-name found 12 candidates for "ch"
+[2026-03-21T09:58:49.093Z] IPC: resolve-app-name called with: "cht"
+[2026-03-21T09:58:49.095Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60387257ms
+[2026-03-21T09:58:49.096Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:49.097Z] IPC: resolve-app-name found 1 candidates for "cht"
+[2026-03-21T09:58:49.102Z] IPC: resolve-app-name called with: "chtr"
+[2026-03-21T09:58:49.104Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60387266ms
+[2026-03-21T09:58:49.106Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:49.107Z] IPC: resolve-app-name found 1 candidates for "chtr"
+[2026-03-21T09:58:49.435Z] IPC: resolve-app-name called with: "chtro"
+[2026-03-21T09:58:49.438Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60387600ms
+[2026-03-21T09:58:49.439Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:49.442Z] IPC: resolve-app-name found 1 candidates for "chtro"
+[2026-03-21T09:58:49.683Z] IPC: resolve-app-name called with: "chtrom"
+[2026-03-21T09:58:49.686Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60387848ms
+[2026-03-21T09:58:49.687Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:49.688Z] IPC: resolve-app-name found 1 candidates for "chtrom"
+[2026-03-21T09:58:49.916Z] IPC: resolve-app-name called with: "chtrome"
+[2026-03-21T09:58:49.918Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60388080ms
+[2026-03-21T09:58:49.919Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:49.920Z] IPC: resolve-app-name found 1 candidates for "chtrome"
+[2026-03-21T09:58:51.674Z] IPC: resolve-app-name called with: "tr"
+[2026-03-21T09:58:51.676Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60389838ms
+[2026-03-21T09:58:51.677Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:51.679Z] IPC: resolve-app-name found 12 candidates for "tr"
+[2026-03-21T09:58:55.518Z] IPC: resolve-app-name called with: "tr"
+[2026-03-21T09:58:55.520Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60393682ms
+[2026-03-21T09:58:55.521Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:58:55.522Z] IPC: resolve-app-name found 12 candidates for "tr"
+[2026-03-21T09:59:36.886Z] IPC: resolve-app-name called with: "i"
+[2026-03-21T09:59:36.889Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60435051ms
+[2026-03-21T09:59:36.890Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:36.893Z] IPC: resolve-app-name found 12 candidates for "i"
+[2026-03-21T09:59:37.198Z] IPC: resolve-app-name called with: "il"
+[2026-03-21T09:59:37.200Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60435361ms
+[2026-03-21T09:59:37.200Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:37.202Z] IPC: resolve-app-name found 12 candidates for "il"
+[2026-03-21T09:59:37.351Z] IPC: resolve-app-name called with: "ill"
+[2026-03-21T09:59:37.353Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60435515ms
+[2026-03-21T09:59:37.354Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:37.355Z] IPC: resolve-app-name found 3 candidates for "ill"
+[2026-03-21T09:59:39.462Z] IPC: resolve-app-name called with: "illu"
+[2026-03-21T09:59:39.464Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60437626ms
+[2026-03-21T09:59:39.465Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:39.466Z] IPC: resolve-app-name found 0 candidates for "illu"
+[2026-03-21T09:59:39.789Z] IPC: resolve-app-name called with: "illus"
+[2026-03-21T09:59:39.791Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60437953ms
+[2026-03-21T09:59:39.792Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:39.793Z] IPC: resolve-app-name found 0 candidates for "illus"
+[2026-03-21T09:59:41.974Z] IPC: resolve-app-name called with: "illu"
+[2026-03-21T09:59:41.976Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60440138ms
+[2026-03-21T09:59:41.977Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:41.978Z] IPC: resolve-app-name found 0 candidates for "illu"
+[2026-03-21T09:59:42.156Z] IPC: resolve-app-name called with: "ill"
+[2026-03-21T09:59:42.159Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60440321ms
+[2026-03-21T09:59:42.160Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:42.161Z] IPC: resolve-app-name found 3 candidates for "ill"
+[2026-03-21T09:59:42.310Z] IPC: resolve-app-name called with: "il"
+[2026-03-21T09:59:42.312Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60440474ms
+[2026-03-21T09:59:42.313Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:42.314Z] IPC: resolve-app-name found 12 candidates for "il"
+[2026-03-21T09:59:42.974Z] IPC: resolve-app-name called with: "i"
+[2026-03-21T09:59:42.976Z] ensureInstalledAppsCache: cache exists=true, count=847, age=60441138ms
+[2026-03-21T09:59:42.977Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T09:59:42.979Z] IPC: resolve-app-name found 12 candidates for "i"
+[2026-03-21T10:24:57.729Z] main loaded
+[2026-03-21T10:24:57.967Z] app.whenReady
+[2026-03-21T10:24:58.248Z] loadURL: http://localhost:5173
+[2026-03-21T10:25:00.579Z] ready-to-show
+[2026-03-21T10:25:00.650Z] Window set to not always on top (fallback)
+[2026-03-21T10:25:00.656Z] did-finish-load
+[2026-03-21T10:25:27.397Z] IPC: get-start-apps called
+[2026-03-21T10:25:33.456Z] get-start-apps: Found 170 apps
+[2026-03-21T10:25:44.907Z] IPC: resolve-app-name called with: "Figma"
+[2026-03-21T10:25:44.931Z] ensureInstalledAppsCache: cache exists=true, count=847, age=62003093ms
+[2026-03-21T10:25:44.931Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T10:25:44.933Z] IPC: resolve-app-name found 0 candidates for "Figma"
+[2026-03-21T10:25:54.986Z] IPC: launch-app-by-id called with: com.squirrel.Figma.Figma
+[2026-03-21T10:25:56.440Z] launch-app-by-id: Error launching com.squirrel.Figma.Figma: Error: Command failed: explorer.exe shell:appsFolder\com.squirrel.Figma.Figma
+
+[2026-03-21T10:25:56.443Z] IPC: resolve-app-name called with: "Figma"
+[2026-03-21T10:25:56.445Z] ensureInstalledAppsCache: cache exists=true, count=847, age=62014607ms
+[2026-03-21T10:25:56.446Z] ensureInstalledAppsCache: Using cached 847 apps
+[2026-03-21T10:25:56.448Z] IPC: resolve-app-name found 0 candidates for "Figma"
+[2026-03-21T10:55:58.078Z] main loaded
+[2026-03-21T10:55:58.356Z] app.whenReady
+[2026-03-21T10:55:58.551Z] loadURL: http://localhost:5173
+[2026-03-21T10:55:58.614Z] setLoginItemSettings: openAtLogin=false path=C:\Users\samar\Sam 2026 Dev Projects\Desktop-productivity-wallpaper\node_modules\electron\dist\electron.exe
+[2026-03-21T10:55:58.646Z] Event notification shown: meeting @ 16:25
+[2026-03-21T10:55:58.648Z] Event notification scheduler started (30s interval)
+[2026-03-21T10:56:00.905Z] ready-to-show
+[2026-03-21T10:56:00.967Z] Window set to not always on top (fallback)
+[2026-03-21T10:56:00.975Z] did-finish-load

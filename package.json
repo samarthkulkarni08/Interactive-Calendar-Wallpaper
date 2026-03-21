@@ -1,0 +1,65 @@
+{
+  "name": "desktop-productivity-wallpaper",
+  "version": "1.0.0",
+  "main": "dist/main/main/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev:renderer\" \"npm run dev:main:compile\" \"npm run dev:electron\"",
+    "dev:renderer": "vite --port 5173 --strictPort",
+    "dev:main:compile": "tsc -p tsconfig.main.json --watch",
+    "dev:electron": "wait-on http://localhost:5173 && electron dist/main/main/main.js --reload",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "vite build",
+    "build": "npm run build:main && npm run build:renderer",
+    "package": "npm run build && electron-builder",
+    "start": "electron dist/main/main/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "Windows desktop productivity live wallpaper (Electron + React)",
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "electron-store": "^11.0.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "build": {
+    "appId": "com.samar.desktop-productivity-wallpaper",
+    "productName": "Desktop Productivity Wallpaper",
+    "asar": true,
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "forceCodeSigning": false,
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1",
+    "electron-reloader": "^1.2.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1",
+    "wait-on": "^9.0.4"
+  }
+}
