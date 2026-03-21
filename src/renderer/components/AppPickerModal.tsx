@@ -76,7 +76,11 @@ export default function AppPickerModal({ open, onClose, onSelect }: Props) {
   }
 
   return (
-    <div className="appPickerOverlay" onClick={onClose}>
+    <div
+      className="appPickerOverlay"
+      data-wallpaper-interactive
+      onClick={onClose}
+    >
       <div
         className="appPickerModal"
         onClick={(e) => e.stopPropagation()}

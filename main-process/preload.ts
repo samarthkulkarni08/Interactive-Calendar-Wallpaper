@@ -31,9 +31,6 @@ contextBridge.exposeInMainWorld("api", {
   openExternal: (url: string) => ipcRenderer.invoke("open-external", url),
   openPath: (p: string) => ipcRenderer.invoke("open-path", p),
   openClockApp: () => ipcRenderer.invoke("open-clock-app"),
-  pickExe: () => ipcRenderer.invoke("pick-exe") as Promise<{
-    exePath: string;
-  } | null>,
 
   storageGetByDate: (dateKey: DateKey) =>
     ipcRenderer.invoke("storage-get-by-date", dateKey),
@@ -42,20 +39,11 @@ contextBridge.exposeInMainWorld("api", {
     payload: { events?: EventItem[]; todos?: TodoItem[] }
   ) => ipcRenderer.invoke("storage-upsert-by-date", dateKey, payload),
 
-  getInstalledApps: () =>
-    ipcRenderer.invoke("get-installed-apps") as Promise<InstalledAppCandidate[]>,
-  
   resolveAppName: (typedName: string) =>
     ipcRenderer.invoke("resolve-app-name", typedName) as Promise<
       InstalledAppCandidate[]
     >,
-  
-  forceRescanApps: () =>
-    ipcRenderer.invoke("force-rescan-apps") as Promise<InstalledAppCandidate[]>,
-  
-  setIgnoreMouseEvents: (ignore: boolean, options?: { forward: boolean }) =>
-    ipcRenderer.send("set-ignore-mouse-events", ignore, options),
-  
+
   getStartApps: () =>
     ipcRenderer.invoke("get-start-apps") as Promise<StartAppItem[]>,
   
@@ -66,6 +54,10 @@ contextBridge.exposeInMainWorld("api", {
     ipcRenderer.invoke("get-auto-launch") as Promise<{ enabled: boolean }>,
 
   setAutoLaunch: (enabled: boolean) =>
-    ipcRenderer.invoke("set-auto-launch", enabled) as Promise<{ ok: boolean }>
+    ipcRenderer.invoke("set-auto-launch", enabled) as Promise<{ ok: boolean }>,
+
+  /** Tell main process whether the mouse should pass through to the desktop */
+  setWallpaperMouseMode: (mode: "passthrough" | "interactive") =>
+    ipcRenderer.send("wallpaper-mouse-mode", mode)
 });
 

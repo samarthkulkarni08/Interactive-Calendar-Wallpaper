@@ -61,7 +61,6 @@ export default function DatePanel({
         >;
         openExternal?: (url: string) => Promise<void>;
         openPath?: (p: string) => Promise<void>;
-        pickExe?: () => Promise<{ exePath: string } | null>;
         launchAppById?: (appId: string) => Promise<{ success: boolean; error?: string }>;
       };
 
@@ -308,7 +307,12 @@ export default function DatePanel({
   }
 
   return (
-    <aside className="datePanelInline" role="dialog" aria-modal="true">
+    <aside
+      className="datePanelInline"
+      data-wallpaper-interactive
+      role="dialog"
+      aria-modal="true"
+    >
         <div className="datePanelTop">
           <div className="datePanelTitle">{formatDateLabel(dateKey)}</div>
           <button className="datePanelCloseBtn" onClick={onClose} aria-label="Close">
@@ -621,7 +625,11 @@ export default function DatePanel({
         </div>
 
         {resolveModalOpen && (
-          <div className="resolveModalOverlay" onClick={() => setResolveModalOpen(false)}>
+          <div
+            className="resolveModalOverlay"
+            data-wallpaper-interactive
+            onClick={() => setResolveModalOpen(false)}
+          >
             <div
               className="resolveModal"
               onClick={(e) => e.stopPropagation()}

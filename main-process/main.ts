@@ -3,9 +3,9 @@ import {
   BrowserWindow,
   ipcMain,
   shell,
-  dialog,
   screen,
-  Notification
+  Notification,
+  nativeImage
 } from "electron";
 import * as path from "path";
 import { exec } from "child_process";
@@ -15,20 +15,25 @@ import { promisify } from "util";
 const AutoLaunch: any = require("auto-launch");
 import Store from "electron-store";
 import * as fs from "fs";
+import * as os from "os";
 
 const execPromise = promisify(exec);
 
 const APP_NAME = "Desktop Productivity Wallpaper";
 const STORE_NAME = "desktop-productivity-wallpaper";
-// Write to the project root so we can inspect the log reliably.
-// Compiled file lives in: dist/main/main/main.js -> __dirname is dist/main/main.
-const DEBUG_LOG_PATH = path.resolve(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "wallpaper-debug.log"
-);
+
+/** Debug log under user home — keeps the repo root clean */
+function getDebugLogPath(): string {
+  const dir = path.join(os.homedir(), ".desktop-productivity-wallpaper", "logs");
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+  } catch {
+    // ignore
+  }
+  return path.join(dir, "debug.log");
+}
+
+const DEBUG_LOG_PATH = getDebugLogPath();
 
 function debugLog(message: string) {
   try {
@@ -43,6 +48,11 @@ function debugLog(message: string) {
 }
 
 debugLog("main loaded");
+
+// Windows toasts: must run before the `ready` event (see Electron `setAppUserModelId` docs).
+if (process.platform === "win32") {
+  app.setAppUserModelId("com.samar.desktop-productivity-wallpaper");
+}
 
 type DateKey = string; // YYYY-MM-DD
 
@@ -127,9 +137,6 @@ function createWindow() {
     }
   } as any);
 
-  // Don't use setIgnoreMouseEvents - let CSS pointer-events handle click-through
-  // mainWindow.setIgnoreMouseEvents(true, { forward: true });
-
   mainWindow.webContents.on("did-finish-load", () => {
     debugLog("did-finish-load");
   });
@@ -160,6 +167,10 @@ function createWindow() {
       } catch (err) {
         debugLog(`Error setting window position: ${err}`);
       }
+      // OS-level click-through: transparent windows still capture the HWND on Windows.
+      // forward:true keeps mousemove in the renderer so we can toggle when over UI.
+      mainWindow?.setIgnoreMouseEvents(true, { forward: true });
+      debugLog("Mouse events: passthrough mode (forwarding moves for hit-testing)");
     }
   });
 
@@ -218,8 +229,37 @@ function pruneEventNotificationFiredKeys(todayKey: DateKey) {
   }
 }
 
+function getWindowsNotificationIcon(): Electron.NativeImage | undefined {
+  if (process.platform !== "win32") return undefined;
+  try {
+    const img = nativeImage.createFromPath(process.execPath);
+    if (!img.isEmpty()) return img;
+  } catch {
+    // ignore
+  }
+  return undefined;
+}
+
+function buildEventNotificationOptions(
+  title: string,
+  body: string
+): Electron.NotificationConstructorOptions {
+  const opts: Electron.NotificationConstructorOptions = {
+    title,
+    body,
+    silent: false
+  };
+  if (process.platform === "win32") {
+    opts.timeoutType = "default";
+    const icon = getWindowsNotificationIcon();
+    if (icon) opts.icon = icon;
+  }
+  return opts;
+}
+
 function checkDueEventNotifications() {
   if (!Notification.isSupported()) {
+    debugLog("Event notifications skipped: Notification.isSupported() is false");
     return;
   }
 
@@ -242,18 +282,18 @@ function checkDueEventNotifications() {
     const fireKey = `${todayKey}|${ev.id}`;
     if (fired[fireKey]) continue;
 
-    fired[fireKey] = true;
-    store.set("eventNotificationsFired", fired);
-
     let body = ev.time;
     if (ev.link) body += " · Tap to open link";
 
+    const title =
+      ev.title && ev.title.trim().length > 0
+        ? `Event: ${ev.title.trim()}`
+        : "Calendar event";
+
     try {
-      const n = new Notification({
-        title: `Event: ${ev.title}`,
-        body,
-        silent: false
-      });
+      const n = new Notification(
+        buildEventNotificationOptions(title, body || ev.time)
+      );
 
       if (ev.link) {
         n.on("click", () => {
@@ -262,6 +302,9 @@ function checkDueEventNotifications() {
       }
 
       n.show();
+      // Only mark after a successful show so a failed toast can retry next tick
+      fired[fireKey] = true;
+      store.set("eventNotificationsFired", fired);
       debugLog(`Event notification shown: ${ev.title} @ ${ev.time}`);
     } catch (err) {
       debugLog(`Event notification error: ${err}`);
@@ -274,11 +317,12 @@ let eventNotificationInterval: ReturnType<typeof setInterval> | null = null;
 function startEventNotificationScheduler() {
   if (eventNotificationInterval) return;
   checkDueEventNotifications();
+  // Frequent enough to hit the correct local minute; Windows toasts are sensitive to timing
   eventNotificationInterval = setInterval(
     () => checkDueEventNotifications(),
-    30 * 1000
+    10 * 1000
   );
-  debugLog("Event notification scheduler started (30s interval)");
+  debugLog("Event notification scheduler started (10s interval)");
 }
 
 async function openExternal(url: string) {
@@ -425,32 +469,6 @@ ipcMain.handle(
   }
 );
 
-ipcMain.handle("scan-installed-apps", async () => {
-  debugLog("IPC: scan-installed-apps called");
-  const apps = await ensureInstalledAppsCache();
-  debugLog(`IPC: scan-installed-apps returning ${apps.length} apps`);
-  return apps;
-});
-
-ipcMain.handle("force-rescan-apps", async () => {
-  debugLog("IPC: force-rescan-apps called, clearing cache");
-  store.delete("installedAppsCache");
-  const apps = await scanInstalledApps();
-  store.set("installedAppsCache", {
-    lastScannedAt: Date.now(),
-    apps
-  });
-  debugLog(`IPC: force-rescan-apps complete, found ${apps.length} apps`);
-  return apps;
-});
-
-ipcMain.handle("get-installed-apps", async () => {
-  debugLog("IPC: get-installed-apps called");
-  const apps = await ensureInstalledAppsCache();
-  debugLog(`IPC: get-installed-apps returning ${apps.length} apps`);
-  return apps;
-});
-
 ipcMain.handle("resolve-app-name", async (_evt, typedName: string) => {
   debugLog(`IPC: resolve-app-name called with: "${typedName}"`);
   const apps = await ensureInstalledAppsCache();
@@ -480,25 +498,6 @@ ipcMain.handle("open-clock-app", async () => {
   }
 
   return { used: "none" };
-});
-
-ipcMain.handle("pick-exe", async () => {
-  if (!mainWindow) return null;
-
-  const res = await dialog.showOpenDialog(mainWindow as any, {
-    title: "Select an executable (.exe)",
-    properties: ["openFile"],
-    filters: [{ name: "Executables", extensions: ["exe"] }]
-  });
-
-  if (res.canceled || !res.filePaths?.[0]) return null;
-  return { exePath: res.filePaths[0] };
-});
-
-ipcMain.on("set-ignore-mouse-events", (_evt, ignore: boolean, options?: { forward: boolean }) => {
-  if (!mainWindow) return;
-  mainWindow.setIgnoreMouseEvents(ignore, options);
-  debugLog(`set-ignore-mouse-events: ignore=${ignore}, forward=${options?.forward}`);
 });
 
 ipcMain.handle("get-start-apps", async () => {
@@ -590,13 +589,28 @@ ipcMain.handle("get-auto-launch", async () => ({
   enabled: !!store.get("settings.autoLaunch")
 }));
 
+/**
+ * Wallpaper window: pass mouse to the desktop except over interactive UI.
+ * `passthrough` true => clicks go to desktop/icons; false => normal Electron hit-testing.
+ */
+ipcMain.on(
+  "wallpaper-mouse-mode",
+  (_evt, mode: "passthrough" | "interactive") => {
+    if (!mainWindow || mainWindow.isDestroyed()) return;
+    try {
+      if (mode === "passthrough") {
+        mainWindow.setIgnoreMouseEvents(true, { forward: true });
+      } else {
+        mainWindow.setIgnoreMouseEvents(false);
+      }
+    } catch (err) {
+      debugLog(`wallpaper-mouse-mode error: ${err}`);
+    }
+  }
+);
+
 app.whenReady().then(() => {
   debugLog("app.whenReady");
-
-  // Required for Windows toast notifications to show app name correctly
-  if (process.platform === "win32") {
-    app.setAppUserModelId("com.samar.desktop-productivity-wallpaper");
-  }
 
   createWindow();
 

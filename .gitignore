@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs & local debug (runtime log is under %USERPROFILE%\.desktop-productivity-wallpaper\logs\)
+*.log
+wallpaper-debug.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# electron-builder noise (also under dist/)
+*.exe.blockmap
+builder-debug.yml
+builder-effective-config.yaml

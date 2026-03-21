@@ -24,6 +24,7 @@ export default function TimeWidget() {
   return (
     <div
       className="timeWidget"
+      data-wallpaper-interactive
       role="button"
       tabIndex={0}
       onClick={openClock}

@@ -3,14 +3,13 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "dist/main",
-    "rootDir": "src",
+    "rootDir": "main-process",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "target": "ES2020",
     "sourceMap": true,
     "types": ["node"]
   },
-  "include": ["src/main/**/*.ts", "src/main/**/*.tsx"],
-  "exclude": ["src/renderer"]
+  "include": ["main-process/**/*.ts"],
+  "exclude": ["src"]
 }
-

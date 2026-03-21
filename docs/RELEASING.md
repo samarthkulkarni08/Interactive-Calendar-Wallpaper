@@ -2,7 +2,7 @@
 
 ## 1. Build the installer
 
-`electron-builder` is configured under `"build"` in [package.json](package.json).
+`electron-builder` is configured under `"build"` in the root [package.json](../package.json). Main-process source lives in **`main-process/`** (compiled to **`dist/main/`**).
 
 ```bash
 npm install
@@ -22,7 +22,7 @@ On **Windows**, startup uses Electron’s **`app.setLoginItemSettings`** (same a
 
 For **today’s** events, when the system clock reaches the event’s time (same local **HH:MM**), the app shows a **Windows toast** (Electron `Notification`). Each event fires **once per day**. If the event has a **link**, clicking the notification opens it in the default browser.
 
-**Note:** The app must be running (tray/background) for the scheduler to run. Windows may require **notifications enabled** for the app in *Settings → System → Notifications*.
+**Note:** The app must be running (tray/background) for the scheduler to run. Windows may require **notifications enabled** for the app in *Settings → System → Notifications*. **Focus Assist** can block toasts. When running **`npm run dev`**, toasts may appear under **Electron** until you install the packaged app (Start Menu shortcut + App User Model ID).
 
 ## 4. Test checklist
 

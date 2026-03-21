@@ -3,6 +3,7 @@ import "./styles/global.css";
 import TimeWidget from "./components/TimeWidget";
 import CalendarView from "./components/CalendarView";
 import DatePanel from "./components/DatePanel";
+import { useWallpaperMousePassthrough } from "./hooks/useWallpaperMousePassthrough";
 
 type EventItem = {
   id: string;
@@ -46,6 +47,8 @@ function getMonthGrid(monthCursor: Date): Date[] {
 }
 
 export default function App() {
+  useWallpaperMousePassthrough();
+
   const api = (window as any).api as
     | undefined
     | {
@@ -144,25 +147,40 @@ export default function App() {
     <div className="wallpaperRoot">
       <TimeWidget />
       <div className="mainLayout">
-        <div className="calendarWrap">
-          <CalendarView
-            key={`${monthCursor.getFullYear()}-${monthCursor.getMonth()}`}
-            monthCursor={monthCursor}
-            dateDataByKey={dateDataByKey}
-            onPrev={() => setMonthCursor((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))}
-            onNext={() => setMonthCursor((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1))}
-            onDateClick={onDateClick}
-            todayKey={dateKey(new Date())}
+        {/*
+          One interactive wrapper so the flex *gap* between calendar and panel
+          stays hit-testable. With pointer-events:none on mainLayout, gap space
+          used to fall through to the desktop and toggle OS passthrough mid-drag.
+        */}
+        <div className="wallpaperUiCluster" data-wallpaper-interactive>
+          <div className="calendarWrap">
+            <CalendarView
+              key={`${monthCursor.getFullYear()}-${monthCursor.getMonth()}`}
+              monthCursor={monthCursor}
+              dateDataByKey={dateDataByKey}
+              onPrev={() =>
+                setMonthCursor((d) =>
+                  new Date(d.getFullYear(), d.getMonth() - 1, 1)
+                )
+              }
+              onNext={() =>
+                setMonthCursor((d) =>
+                  new Date(d.getFullYear(), d.getMonth() + 1, 1)
+                )
+              }
+              onDateClick={onDateClick}
+              todayKey={dateKey(new Date())}
+            />
+          </div>
+
+          <DatePanel
+            open={panelOpen}
+            dateKey={selectedDateKey}
+            initialData={selectedDateData}
+            onClose={() => setPanelOpen(false)}
+            onPersist={persistDate}
           />
         </div>
-
-        <DatePanel
-          open={panelOpen}
-          dateKey={selectedDateKey}
-          initialData={selectedDateData}
-          onClose={() => setPanelOpen(false)}
-          onPersist={persistDate}
-        />
       </div>
     </div>
   );
