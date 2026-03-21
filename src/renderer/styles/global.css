@@ -5,6 +5,26 @@
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.62);
   --accent: rgba(130, 170, 255, 0.95);
+
+  /* Responsive layout — scales with desktop size (vw/vh/vmin) */
+  --layout-pad-top: clamp(3.25rem, 7vh, 6.5rem);
+  --layout-pad-bottom: clamp(1.25rem, 3.5vh, 3rem);
+  --layout-pad-x: clamp(0.85rem, 3.2vw, 3.75rem);
+  --cluster-gap: clamp(0.85rem, 1.8vw, 1.5rem);
+  --calendar-max-w: min(1120px, calc(100vw - 2 * var(--layout-pad-x)));
+  --calendar-card-w: 720px;
+  --calendar-cell-h: clamp(4.25rem, 9.5vmin, 6rem);
+  --calendar-cell-gap: clamp(0.45rem, 1.1vmin, 0.85rem);
+  --calendar-grid-pad: clamp(0.7rem, 1.5vw, 1.1rem);
+  --font-cal-title: clamp(1.35rem, 2.35vw, 1.75rem);
+  --font-cal-weekday: clamp(0.72rem, 1.1vw, 0.9rem);
+  --font-cal-cell-day: clamp(0.92rem, 1.45vw, 1.15rem);
+  --nav-btn-size: clamp(40px, 5.5vmin, 60px);
+  --panel-side-width: clamp(23rem, 29vw, 32rem);
+  --time-font-big: clamp(1.55rem, 2.95vw, 2.1rem);
+  --time-font-small: clamp(0.75rem, 1.1vw, 0.88rem);
+  --block-header-size: clamp(1rem, 1.35vw, 1.125rem);
+  --input-min-h: clamp(2.5rem, 4vmin, 2.85rem);
 }
 
 * {
@@ -23,10 +43,13 @@ body {
     BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: transparent;
   color: var(--text);
+  /* Let clicks reach children with pointer-events: auto only; helps pass-through */
+  pointer-events: none;
 }
 
 #root {
   height: 100%;
+  pointer-events: none;
 }
 
 .wallpaperRoot {
@@ -40,22 +63,35 @@ body {
 .mainLayout {
   position: absolute;
   inset: 0;
-  padding: 84px 40px 40px 40px;
+  padding: var(--layout-pad-top) var(--layout-pad-x) var(--layout-pad-bottom);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 18px;
+  /* Full-area flex box would otherwise steal clicks outside the calendar strip */
+  pointer-events: none;
+}
+
+/* Calendar + date panel: one hit target so flex gap isn’t “holes” to the desktop */
+.wallpaperUiCluster {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cluster-gap);
+  pointer-events: auto;
+  max-width: 100%;
 }
 
 .calendarWrap {
-  width: min(760px, 100%);
+  flex: 0 1 var(--calendar-card-w);
+  width: var(--calendar-card-w);
+  max-width: 100%;
+  min-width: 0; /* Allow flex shrink when calendar + panel exceed cluster width */
   pointer-events: auto; /* Calendar captures clicks */
 }
 
 .calendarStage {
   position: absolute;
   inset: 0;
-  padding: 84px 40px 40px 40px;
+  padding: var(--layout-pad-top) var(--layout-pad-x) var(--layout-pad-bottom);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -70,13 +106,13 @@ button {
 
 .timeWidget {
   position: absolute;
-  top: 22px;
-  left: 22px;
+  top: clamp(14px, 2vh, 26px);
+  left: clamp(14px, 2vw, 28px);
   z-index: 30;
   display: inline-flex;
   flex-direction: column;
   gap: 2px;
-  padding: 10px 14px;
+  padding: clamp(10px, 1.2vh, 14px) clamp(12px, 1.5vw, 18px);
   border-radius: 14px;
   background: rgba(12, 12, 14, 0.55);
   border: 1px solid var(--panel-border);
@@ -93,20 +129,20 @@ button {
 }
 
 .timeWidgetTime {
-  font-size: 26px;
+  font-size: var(--time-font-big);
   letter-spacing: 0.2px;
   line-height: 1.1;
   font-weight: 650;
 }
 
 .timeWidgetLabel {
-  font-size: 12px;
+  font-size: var(--time-font-small);
   color: var(--muted);
 }
 
 .calendarCard {
-  width: min(760px, 100%);
-  max-width: 760px;
+  width: 100%;
+  max-width: 100%;
   pointer-events: auto;
   display: flex;
   flex-direction: column;
@@ -116,19 +152,26 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  gap: clamp(6px, 1.2vw, 12px);
+  margin-bottom: clamp(10px, 1.5vh, 14px);
 }
 
 .calendarHeaderTitle {
+  flex: 1;
+  min-width: 0;
   font-weight: 650;
-  font-size: 22px;
+  font-size: var(--font-cal-title);
   color: rgba(255, 255, 255, 0.95);
   letter-spacing: 0.2px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .calendarNavBtn {
-  width: 42px;
-  height: 42px;
+  width: var(--nav-btn-size);
+  height: var(--nav-btn-size);
   border-radius: 14px;
   background: rgba(12, 12, 14, 0.42);
   border: 1px solid var(--panel-border);
@@ -148,9 +191,9 @@ button {
 .calendarWeekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  padding: 8px 12px;
+  padding: clamp(6px, 1vw, 10px) clamp(10px, 1.2vw, 14px);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-cal-weekday);
 }
 
 .calendarWeekday {
@@ -160,8 +203,13 @@ button {
 .calendarGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  padding: 12px;
+  width: 100%;
+  max-width: var(--calendar-card-w);
+  align-self: center;
+  min-height: clamp(260px, 42vmin, 410px);
+  height: auto;
+  gap: var(--calendar-cell-gap);
+  padding: var(--calendar-grid-pad);
   border-radius: 18px;
   background: rgba(12, 12, 14, 0.28);
   border: 1px solid var(--panel-border);
@@ -169,13 +217,14 @@ button {
 }
 
 .calendarCell {
-  height: 62px;
+  height: var(--calendar-cell-h);
+  min-height: 3.25rem;
   border-radius: 14px;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.02);
   cursor: pointer;
   position: relative;
-  padding: 8px;
+  padding: clamp(6px, 1vmin, 10px);
   transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
 }
 
@@ -203,7 +252,7 @@ button {
 }
 
 .calendarCellDay {
-  font-size: 14px;
+  font-size: var(--font-cal-cell-day);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -219,11 +268,11 @@ button {
 }
 
 .calendarBadge {
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
+  min-width: clamp(18px, 2.2vmin, 22px);
+  height: clamp(18px, 2.2vmin, 22px);
+  padding: 0 clamp(4px, 0.6vw, 6px);
   border-radius: 10px;
-  font-size: 11px;
+  font-size: clamp(10px, 1.1vw, 12px);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -242,8 +291,10 @@ button {
 
 .datePanelInline {
   pointer-events: auto; /* Date panel captures clicks */
-  width: 420px;
-  max-width: 90vw;
+  width: var(--panel-side-width);
+  max-width: min(96vw, var(--panel-side-width));
+  flex: 0 1 auto;
+  min-width: min(100%, 18rem);
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: 18px;
@@ -289,8 +340,8 @@ button {
   top: 0;
   right: 0;
   height: 100%;
-  width: 420px;
-  max-width: 90vw;
+  width: var(--panel-side-width);
+  max-width: min(96vw, var(--panel-side-width));
   background: var(--panel-bg);
   border-left: 1px solid var(--panel-border);
   backdrop-filter: blur(14px);
@@ -315,7 +366,7 @@ button {
 
 .datePanelTitle {
   font-weight: 650;
-  font-size: 18px;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
   color: rgba(255, 255, 255, 0.95);
 }
 
@@ -384,7 +435,7 @@ button {
 }
 
 .blockHeader {
-  font-size: 16px;
+  font-size: var(--block-header-size);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
   margin-bottom: 10px;
@@ -475,8 +526,8 @@ button {
 
 .textInput {
   width: 100%;
-  min-height: 40px;
-  padding: 10px 12px;
+  min-height: var(--input-min-h);
+  padding: clamp(8px, 1.2vmin, 12px) clamp(10px, 1.2vw, 14px);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.10);
   background: rgba(255, 255, 255, 0.04);
@@ -807,8 +858,8 @@ button {
 }
 
 .appPickerModal {
-  width: min(720px, 100%);
-  max-height: 80vh;
+  width: min(760px, calc(100vw - 2rem));
+  max-height: min(80vh, 52rem);
   border-radius: 20px;
   background: rgba(16, 16, 18, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -920,14 +971,20 @@ button {
 
 .appPickerGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(clamp(5.5rem, 18vw, 8.75rem), 1fr)
+  );
+  gap: clamp(10px, 1.8vw, 16px);
   padding: 10px 0;
 }
 
 @media (max-width: 600px) {
   .appPickerGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(clamp(4.75rem, 26vw, 6.5rem), 1fr)
+    );
   }
 }
 
@@ -1001,5 +1058,59 @@ button {
   font-size: 14px;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(130, 170, 255, 0.40);
+}
+
+/* ---------- Responsive: mid / small / short desktops ---------- */
+
+@media (max-width: 1180px) {
+  .wallpaperUiCluster {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: min(var(--calendar-max-w), 100%);
+    margin-inline: auto;
+  }
+
+  .calendarWrap,
+  .calendarCard {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .datePanelInline {
+    width: 100%;
+    max-width: 100%;
+    align-self: stretch;
+    min-height: min(50vh, 26rem);
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --layout-pad-x: 0.65rem;
+    --layout-pad-top: clamp(2.75rem, 12vw, 3.5rem);
+    --cluster-gap: 0.65rem;
+    --calendar-cell-h: clamp(3.35rem, 14vw, 4.25rem);
+  }
+
+  .timeWidget {
+    top: 10px;
+    left: 10px;
+  }
+}
+
+@media (max-height: 760px) {
+  :root {
+    --layout-pad-top: clamp(2.5rem, 6vh, 4.25rem);
+    --layout-pad-bottom: 0.85rem;
+    --calendar-cell-h: clamp(3.35rem, 8vmin, 4.75rem);
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --calendar-max-w: min(1200px, 54vw);
+    --panel-side-width: clamp(26rem, 24vw, 34rem);
+  }
 }
 
