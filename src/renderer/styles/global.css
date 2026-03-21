@@ -7,12 +7,12 @@
   --accent: rgba(130, 170, 255, 0.95);
 
   /* Responsive layout — scales with desktop size (vw/vh/vmin) */
-  --layout-pad-top: clamp(3.25rem, 7vh, 6.5rem);
+  --layout-pad-top: clamp(4rem, 8.5vh, 7.25rem);
   --layout-pad-bottom: clamp(1.25rem, 3.5vh, 3rem);
   --layout-pad-x: clamp(0.85rem, 3.2vw, 3.75rem);
   --cluster-gap: clamp(0.85rem, 1.8vw, 1.5rem);
   --calendar-max-w: min(1120px, calc(100vw - 2 * var(--layout-pad-x)));
-  --calendar-card-w: 720px;
+  --calendar-card-w: 680px;
   --calendar-cell-h: clamp(4.25rem, 9.5vmin, 6rem);
   --calendar-cell-gap: clamp(0.45rem, 1.1vmin, 0.85rem);
   --calendar-grid-pad: clamp(0.7rem, 1.5vw, 1.1rem);
@@ -71,6 +71,14 @@ body {
   pointer-events: none;
 }
 
+/* Keep calendar nav clear of the top-left clock on medium/narrow widths */
+@media (max-width: 1280px) {
+  .mainLayout {
+    padding-left: max(var(--layout-pad-x), clamp(8.5rem, 22vw, 11rem));
+    padding-right: max(var(--layout-pad-x), clamp(8.5rem, 22vw, 11rem));
+  }
+}
+
 /* Calendar + date panel: one hit target so flex gap isn’t “holes” to the desktop */
 .wallpaperUiCluster {
   display: flex;
@@ -86,6 +94,8 @@ body {
   max-width: 100%;
   min-width: 0; /* Allow flex shrink when calendar + panel exceed cluster width */
   pointer-events: auto; /* Calendar captures clicks */
+  /* Sit below the clock / clear the top-left time widget */
+  margin-top: clamp(12px, 2.2vh, 32px);
 }
 
 .calendarStage {
@@ -143,6 +153,7 @@ button {
 .calendarCard {
   width: 100%;
   max-width: 100%;
+  padding-top: 20px;
   pointer-events: auto;
   display: flex;
   flex-direction: column;
@@ -287,6 +298,42 @@ button {
 
 .calendarBadgeEvent {
   background: rgba(180, 140, 255, 0.9);
+}
+
+.calendarLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(14px, 2.2vw, 22px);
+  justify-content: center;
+  align-items: center;
+  margin-top: clamp(10px, 1.4vh, 16px);
+  padding: 0 2px;
+}
+
+.calendarLegendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.calendarLegendSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+.calendarLegendSwatchTodo {
+  background: rgba(255, 180, 100, 0.95);
+}
+
+.calendarLegendSwatchEvent {
+  background: rgba(180, 140, 255, 0.95);
 }
 
 .datePanelInline {
@@ -775,12 +822,17 @@ button {
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.92);
   cursor: pointer;
-  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 120ms ease, border-color 120ms ease;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.iconBtnSvg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .iconBtn:hover {
@@ -789,8 +841,9 @@ button {
 }
 
 .iconBtnDelete:hover {
-  background: rgba(255, 100, 100, 0.12);
-  border-color: rgba(255, 100, 100, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 1);
 }
 
 .editForm {

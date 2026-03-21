@@ -129,6 +129,17 @@ export default function CalendarView({
           );
         })}
       </div>
+
+      <div className="calendarLegend" aria-label="Calendar color key">
+        <div className="calendarLegendItem">
+          <span className="calendarLegendSwatch calendarLegendSwatchTodo" />
+          <span>Tasks</span>
+        </div>
+        <div className="calendarLegendItem">
+          <span className="calendarLegendSwatch calendarLegendSwatchEvent" />
+          <span>Events</span>
+        </div>
+      </div>
     </div>
   );
 }
