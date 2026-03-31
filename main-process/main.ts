@@ -19,12 +19,12 @@ import * as os from "os";
 
 const execPromise = promisify(exec);
 
-const APP_NAME = "Desktop Productivity Wallpaper";
-const STORE_NAME = "desktop-productivity-wallpaper";
+const APP_NAME = "DeskZen";
+const STORE_NAME = "deskzen";
 
 /** Debug log under user home — keeps the repo root clean */
 function getDebugLogPath(): string {
-  const dir = path.join(os.homedir(), ".desktop-productivity-wallpaper", "logs");
+  const dir = path.join(os.homedir(), ".deskzen", "logs");
   try {
     fs.mkdirSync(dir, { recursive: true });
   } catch {
@@ -51,7 +51,7 @@ debugLog("main loaded");
 
 // Windows toasts: must run before the `ready` event (see Electron `setAppUserModelId` docs).
 if (process.platform === "win32") {
-  app.setAppUserModelId("com.samar.desktop-productivity-wallpaper");
+  app.setAppUserModelId("com.samar.deskzen");
 }
 
 type DateKey = string; // YYYY-MM-DD
@@ -733,20 +733,35 @@ ipcMain.on(
   }
 );
 
-app.whenReady().then(() => {
-  debugLog("app.whenReady");
+// Prevent multiple instances — a second launch would add a new wallpaper layer.
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  debugLog("Second instance detected — quitting.");
+  app.quit();
+} else {
+  // If the user somehow triggers a second instance, just focus the existing window.
+  app.on("second-instance", () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
 
-  createWindow();
+  app.whenReady().then(() => {
+    debugLog("app.whenReady");
 
-  // Default: start with Windows (first run)
-  const current = store.get("settings.autoLaunch");
-  if (typeof current !== "boolean") {
-    store.set("settings.autoLaunch", true);
-  }
+    createWindow();
 
-  applyOpenAtLogin();
-  startEventNotificationScheduler();
-});
+    // Default: start with Windows (first run)
+    const current = store.get("settings.autoLaunch");
+    if (typeof current !== "boolean") {
+      store.set("settings.autoLaunch", true);
+    }
+
+    applyOpenAtLogin();
+    startEventNotificationScheduler();
+  });
+}
 
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
