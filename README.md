@@ -1,4 +1,4 @@
-# Desktop Productivity Wallpaper
+# DeskZen
 
 A **Windows** desktop app built with **Electron** and **React (Vite)**. It draws an **always-on-bottom**, transparent “wallpaper” layer over your work area so you can keep a **calendar**, **events**, **to-dos**, and **optional Windows app shortcuts** on screen while still clicking through to the desktop where there’s no UI.
 
@@ -33,7 +33,7 @@ Run these from the **project root** (where `package.json` lives).
 
 | Command | What it does |
 |--------|----------------|
-| `npm run package` | Runs **`npm run build`**, then **electron-builder** to produce an **NSIS installer** under `dist/` (e.g. `Desktop Productivity Wallpaper Setup x.x.x.exe`). |
+| `npm run package` | Runs **`npm run build`**, then **electron-builder** to produce an **NSIS installer** under `dist/` (e.g. `DeskZen Setup x.x.x.exe`). |
 | `npm run clean` | Deletes the entire **`dist/`** folder (compiled app + any previous installer output). Run before a fresh **`npm run build`** or **`npm run package`** if you want a clean tree. |
 
 ### Lower-level dev scripts (used by `npm run dev`)
@@ -53,7 +53,7 @@ You rarely need these alone; they’re listed for clarity.
 ### Top-level folders (source vs generated)
 
 ```
-Desktop-productivity-wallpaper/
+DeskZen/
 ├── main-process/          # Electron main + preload (TypeScript source)
 ├── src/
 │   └── renderer/          # React UI source
@@ -125,4 +125,4 @@ If you ever see an old **`dist/electron/`** folder, it’s from a **previous lay
 
 Runtime debug log (not in the repo):
 
-`%USERPROFILE%\.desktop-productivity-wallpaper\logs\debug.log`
+`%USERPROFILE%\.deskzen\logs\debug.log`

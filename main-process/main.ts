@@ -18,10 +18,10 @@ import * as fs from "fs";
 import * as os from "os";
 
 const execPromise = promisify(exec);
-
+ 
 const APP_NAME = "DeskZen";
 const STORE_NAME = "deskzen";
-
+ 
 /** Debug log under user home — keeps the repo root clean */
 function getDebugLogPath(): string {
   const dir = path.join(os.homedir(), ".deskzen", "logs");
@@ -32,9 +32,9 @@ function getDebugLogPath(): string {
   }
   return path.join(dir, "debug.log");
 }
-
+ 
 const DEBUG_LOG_PATH = getDebugLogPath();
-
+ 
 function debugLog(message: string) {
   try {
     fs.appendFileSync(
@@ -46,8 +46,24 @@ function debugLog(message: string) {
     // ignore
   }
 }
-
+ 
 debugLog("main loaded");
+ 
+// Single Instance Lock
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  debugLog("Another instance is already running. Quitting.");
+  app.quit();
+} else {
+  app.on("second-instance", (event, commandLine, workingDirectory) => {
+    debugLog("Second instance tried to launch. Focusing main window.");
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+}
 
 // Windows toasts: must run before the `ready` event (see Electron `setAppUserModelId` docs).
 if (process.platform === "win32") {
@@ -733,35 +749,20 @@ ipcMain.on(
   }
 );
 
-// Prevent multiple instances — a second launch would add a new wallpaper layer.
-const gotLock = app.requestSingleInstanceLock();
-if (!gotLock) {
-  debugLog("Second instance detected — quitting.");
-  app.quit();
-} else {
-  // If the user somehow triggers a second instance, just focus the existing window.
-  app.on("second-instance", () => {
-    if (mainWindow && !mainWindow.isDestroyed()) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-    }
-  });
+app.whenReady().then(() => {
+  debugLog("app.whenReady");
 
-  app.whenReady().then(() => {
-    debugLog("app.whenReady");
+  createWindow();
 
-    createWindow();
+  // Default: start with Windows (first run)
+  const current = store.get("settings.autoLaunch");
+  if (typeof current !== "boolean") {
+    store.set("settings.autoLaunch", true);
+  }
 
-    // Default: start with Windows (first run)
-    const current = store.get("settings.autoLaunch");
-    if (typeof current !== "boolean") {
-      store.set("settings.autoLaunch", true);
-    }
-
-    applyOpenAtLogin();
-    startEventNotificationScheduler();
-  });
-}
+  applyOpenAtLogin();
+  startEventNotificationScheduler();
+});
 
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();

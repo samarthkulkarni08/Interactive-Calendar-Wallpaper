@@ -1,5 +1,5 @@
 {
-  "name": "desktop-productivity-wallpaper",
+  "name": "deskzen",
   "version": "1.1.0",
   "main": "dist/main/main.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "react-dom": "^19.2.4"
   },
   "build": {
-    "appId": "com.samar.desktop-productivity-wallpaper",
+    "appId": "com.samar.deskzen",
     "productName": "DeskZen",
     "asar": true,
     "electronLanguages": ["en-US"],
