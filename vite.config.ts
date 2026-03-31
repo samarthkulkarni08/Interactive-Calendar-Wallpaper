@@ -6,7 +6,9 @@ export default defineConfig({
   base: "./",
   build: {
     outDir: "dist/renderer",
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: false,
+    minify: "esbuild"
   },
   server: {
     port: 5173,

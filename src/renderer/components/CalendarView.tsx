@@ -140,6 +140,25 @@ export default function CalendarView({
           <span>Events</span>
         </div>
       </div>
+
+      <div className="appPickerFooter" style={{ marginTop: 'auto', paddingTop: '16px' }}>
+        <span>DeskZen Version 1.1</span>
+        <span>•</span>
+        <span>2026</span>
+        <span>•</span>
+        <span>
+          Made by{" "}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              (window as any).api?.openExternal?.("https://samarthkulkarni-portfolio.vercel.app/");
+            }}
+          >
+            Auther
+          </a>
+        </span>
+      </div>
     </div>
   );
 }

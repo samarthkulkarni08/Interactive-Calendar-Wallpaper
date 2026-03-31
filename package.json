@@ -1,6 +1,6 @@
 {
   "name": "desktop-productivity-wallpaper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "dist/main/main.js",
   "scripts": {
     "dev": "concurrently -k \"npm run dev:renderer\" \"npm run dev:main:compile\" \"npm run dev:electron\"",
@@ -26,15 +26,57 @@
   },
   "build": {
     "appId": "com.samar.desktop-productivity-wallpaper",
-    "productName": "Desktop Productivity Wallpaper",
+    "productName": "DeskZen",
     "asar": true,
+    "electronLanguages": ["en-US"],
+    "removePackageScripts": true,
     "directories": {
-      "buildResources": "build"
+      "buildResources": "build",
+      "output": "dist"
     },
     "files": [
-      "dist/**/*",
-      "node_modules/**/*",
-      "package.json"
+      "dist/main/**/*",
+      "dist/renderer/**/*",
+      {
+        "from": "node_modules",
+        "to": "node_modules",
+        "filter": [
+          "electron-store/**/*",
+          "auto-launch/**/*",
+          "conf/**/*",
+          "type-fest/**/*",
+          "atomically/**/*",
+          "dot-prop/**/*",
+          "env-paths/**/*",
+          "ajv/**/*",
+          "ajv-formats/**/*",
+          "fast-deep-equal/**/*",
+          "fast-uri/**/*",
+          "json-schema-traverse/**/*",
+          "require-from-string/**/*",
+          "semver/**/*",
+          "uint8array-extras/**/*",
+          "when-exit/**/*",
+          "applescript/**/*",
+          "untildify/**/*",
+          "winreg/**/*",
+          "path-is-absolute/**/*",
+          "!**/*.md",
+          "!**/*.txt",
+          "!**/*.map",
+          "!**/*.d.ts",
+          "!**/__tests__/**",
+          "!**/test/**",
+          "!**/tests/**",
+          "!**/docs/**",
+          "!**/.github/**",
+          "!**/example/**",
+          "!**/examples/**"
+        ]
+      },
+      "package.json",
+      "!**/*.map",
+      "!**/*.d.ts"
     ],
     "win": {
       "forceCodeSigning": false,
@@ -47,6 +89,11 @@
           ]
         }
       ]
+    },
+    "compression": "maximum",
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
     }
   },
   "devDependencies": {

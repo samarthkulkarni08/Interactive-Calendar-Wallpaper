@@ -11,6 +11,33 @@ type Props = {
   onSelect: (app: StartAppItem) => void;
 };
 
+function AppIcon({ appId, appName }: { appId: string; appName: string }) {
+  const api = (window as any).api as any;
+  const [iconUrl, setIconUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      if (api?.getAppIcon) {
+        try {
+          const url = await api.getAppIcon(appId, appName);
+          if (mounted && url) {
+            setIconUrl(url);
+          }
+        } catch (e) {}
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, [appId, appName, api]);
+
+  if (iconUrl) {
+    return <img src={iconUrl} alt="icon" style={{ width: "100%", height: "100%", objectFit: "contain" }} />;
+  }
+  return <span className="appPickerIconPlaceholder">📱</span>;
+}
+
 export default function AppPickerModal({ open, onClose, onSelect }: Props) {
   const api = (window as any).api as
     | undefined
@@ -126,7 +153,7 @@ export default function AppPickerModal({ open, onClose, onSelect }: Props) {
                   title={app.Name}
                 >
                   <div className="appPickerIcon">
-                    <span className="appPickerIconPlaceholder">📱</span>
+                    <AppIcon appId={app.AppID} appName={app.Name} />
                   </div>
                   <div className="appPickerName">{app.Name}</div>
                   {selectedApp?.AppID === app.AppID && (

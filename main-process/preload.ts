@@ -50,6 +50,9 @@ contextBridge.exposeInMainWorld("api", {
   launchAppById: (appId: string) =>
     ipcRenderer.invoke("launch-app-by-id", appId) as Promise<{ success: boolean; error?: string }>,
 
+  getAppIcon: (appId: string, appName: string) =>
+    ipcRenderer.invoke("get-app-icon", appId, appName) as Promise<string | null>,
+
   getAutoLaunch: () =>
     ipcRenderer.invoke("get-auto-launch") as Promise<{ enabled: boolean }>,
 

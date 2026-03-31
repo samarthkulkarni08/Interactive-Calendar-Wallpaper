@@ -548,6 +548,130 @@ ipcMain.handle("launch-app-by-id", async (_evt, appId: string) => {
   }
 });
 
+async function fetchInternetIcon(appName: string): Promise<string | null> {
+  const norm = normalizeName(appName);
+  if (!norm) return null;
+
+  // Custom high-quality icon mappings for basic native Windows apps
+  const windowsApps: Record<string, string> = {
+    "calculator": "https://img.icons8.com/color/512/calculator--v1.png",
+    "alarmsclock": "https://img.icons8.com/color/512/clock--v1.png",
+    "clock": "https://img.icons8.com/color/512/clock--v1.png",
+    "ms-clock": "https://img.icons8.com/color/512/clock--v1.png",
+    "photos": "https://img.icons8.com/color/512/photos.png",
+    "settings": "https://img.icons8.com/color/512/settings--v1.png",
+    "mail": "https://img.icons8.com/color/512/mac-mail.png",
+    "microsoftstore": "https://img.icons8.com/color/512/windows-store.png",
+    "camera": "https://img.icons8.com/color/512/camera--v1.png",
+    "weather": "https://img.icons8.com/color/512/partly-cloudy-day--v1.png",
+    "snippingtool": "https://img.icons8.com/color/512/snipping-tool.png",
+    "notepad": "https://img.icons8.com/color/512/notepad.png",
+    "calendar": "https://img.icons8.com/color/512/calendar--v1.png",
+    "microsoftedge": "https://img.icons8.com/color/512/ms-edge-new.png"
+  };
+
+  if (windowsApps[norm]) {
+    return windowsApps[norm];
+  }
+
+  const cacheKey = `iconUrlCache.${norm}`;
+  const cachedUrl = store.get(cacheKey);
+  // 'none' means we already tried internet and found nothing
+  if (cachedUrl) return cachedUrl === "none" ? null : cachedUrl as string;
+
+  try {
+    // 1. iTunes Search API (Great for high quality icons including PC apps like Photoshop, Armoury Crate)
+    const controller1 = new AbortController();
+    const to1 = setTimeout(() => controller1.abort(), 2000);
+    const itunesRes = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(appName)}&entity=software&limit=1`, { signal: controller1.signal });
+    clearTimeout(to1);
+    
+    if (itunesRes.ok) {
+      const data: any = await itunesRes.json();
+      if (data.results?.[0]?.artworkUrl100) {
+        // High-res icon
+        const url = data.results[0].artworkUrl100.replace("100x100bb", "256x256bb");
+        store.set(cacheKey, url);
+        return url;
+      }
+    }
+  } catch (err) {
+    debugLog(`iTunes fetch failed for ${appName}: ${err}`);
+  }
+
+  try {
+    // 2. Clearbit Autocomplete API (Great for web apps and generic companies)
+    const controller2 = new AbortController();
+    const to2 = setTimeout(() => controller2.abort(), 2000);
+    const cbRes = await fetch(`https://autocomplete.clearbit.com/v1/companies/suggest?query=${encodeURIComponent(appName)}`, { signal: controller2.signal });
+    clearTimeout(to2);
+
+    if (cbRes.ok) {
+      const data: any = await cbRes.json();
+      if (data?.[0]?.logo) {
+        const url = data[0].logo;
+        store.set(cacheKey, url);
+        return url;
+      }
+    }
+  } catch (err) {
+    debugLog(`Clearbit fetch failed for ${appName}: ${err}`);
+  }
+
+  store.set(cacheKey, "none");
+  return null;
+}
+
+ipcMain.handle("get-app-icon", async (_evt, appId: string, appName: string) => {
+  try {
+    // Check if network is theoretically available, try fetching from the internet first
+    if (appName) {
+      const internetUrl = await fetchInternetIcon(appName);
+      if (internetUrl) {
+        return internetUrl;
+      }
+    }
+
+    // Fallbacks if internet fetch fails or is offline
+    if (appName) {
+      const apps = await ensureInstalledAppsCache();
+      const normName = normalizeName(appName);
+      const candidate = apps.find(a => a.displayName.toLowerCase() === appName.toLowerCase()) 
+        || apps.find(a => normalizeName(a.displayName) === normName);
+
+      if (candidate && candidate.exePath) {
+        try {
+          // Attempt to extract target path from shortcut for true .exe icon
+          let targetPath = candidate.exePath;
+          try {
+            const parsed = shell.readShortcutLink(candidate.exePath);
+            if (parsed && parsed.target) {
+              targetPath = parsed.target;
+            }
+          } catch(e) { }
+
+          const icon = await app.getFileIcon(targetPath, { size: "large" });
+          if (!icon.isEmpty()) {
+            return icon.toDataURL();
+          }
+        } catch (e) {
+          // ignore and fallback
+        }
+      }
+    }
+
+    // Fallback: shell:appsFolder works for UWP natively, 
+    // but might return generic UI document icon for standard apps if not handled above
+    const icon = await app.getFileIcon(`shell:appsFolder\\${appId}`, { size: "large" });
+    if (!icon.isEmpty()) {
+      return icon.toDataURL();
+    }
+  } catch (err) {
+    debugLog(`get-app-icon: Error fetching icon for ${appId}: ${err}`);
+  }
+  return null;
+});
+
 /** Windows: use Electron login item (Settings → Startup). Other OS: auto-launch package. */
 function applyOpenAtLogin() {
   const shouldEnable = !!store.get("settings.autoLaunch");
